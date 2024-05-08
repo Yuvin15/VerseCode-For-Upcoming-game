@@ -1,0 +1,22 @@
+using { /Fortnite.com/Devices }
+using { /Fortnite.com/Characters }
+using { /Verse.org/Simulation }
+
+# A Verse-authored creative device that can be placed in a level
+Test := class(creative_device):
+    # I used button in this example. But any device that accept 'agent' can be used
+    @editable Button: button_device = button_device{}
+    increaseHealth:float = 150.0 
+
+
+    # Runs when the device is started in a running game
+    OnBegin<override>()<suspends>:void=
+        # When interacting with the button, your max health will be set to 150
+        Button.InteractedWithEvent.Subscribe(OnInteracted)
+
+    # Set max health of the instigator to 150 
+    OnInteracted(Agent: agent): void=
+        if (FortChar:= Agent.GetFortCharacter[]):
+            current_health: float = FortChar.GetHealth()
+            FortChar.SetMaxHealth(current_health + increaseHealth)
+            Print("This should work?", ?Duration:=1.0)
