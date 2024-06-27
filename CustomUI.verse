@@ -38,7 +38,7 @@ CustomUI := class(creative_device):
         NewCanvas : canvas = canvas:
             Slots:=array:
                 canvas_slot: # Upper Middle of Screen
-                    Anchors := anchors{Minimum := vector2{X := 0.5, Y := 0.1}, Maximum := vector2{X := 0.5, Y := 0.1} }
+                    Anchors := anchors{Minimum := vector2{X := 0.4, Y := 0.1}, Maximum := vector2{X := 0.4, Y := 0.1} }
                     Offsets := margin{Top := 0.0, Left := 0.0, Right := 0.0, Bottom := 0.0}
                     Alignment := vector2{X := 0.0, Y := 0.0}
                     SizeToContent := true
@@ -55,7 +55,7 @@ CustomUI := class(creative_device):
                                                         Widget := color_block:
                                                             DefaultColor := NamedColors.Red
                                                             DefaultOpacity := 1.0
-                                                            DefaultDesiredSize := vector2{X := 120.0, Y := 50.0}                                
+                                                            DefaultDesiredSize := vector2{X := 200.0, Y := 50.0}                                
                                                     overlay_slot:
                                                         Widget := text_block:
                                                             DefaultText := TextForUI("Flags: {RedFlags}")                            
@@ -69,7 +69,7 @@ CustomUI := class(creative_device):
                                             Widget := color_block:
                                                 DefaultColor := NamedColors.Blue
                                                 DefaultOpacity := 1.0
-                                                DefaultDesiredSize := vector2{X := 120.0, Y := 50.0}                                
+                                                DefaultDesiredSize := vector2{X := 200.0, Y := 50.0}                                
                                         overlay_slot:
                                             Widget := text_block:
                                                 DefaultText := TextForUI("Flags: {BlueFlags}")
@@ -106,4 +106,5 @@ CustomUI := class(creative_device):
             set RedFlags += StartingScoreRed + AddOnCapture
             set BlueFlags += StartingScoreBlue + AddOnCapture
             RefreshUI(PlayerUI)
+
             Print("Flags updated", ?Duration := 6.0)
