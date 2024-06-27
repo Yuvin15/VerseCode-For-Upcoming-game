@@ -12,6 +12,18 @@ using { /UnrealEngine.com/Temporary/SpatialMath }
 CustomUI := class(creative_device):
 
     TextForUI<localizes>(InText : string) : message = "{InText}"
+    
+    @editable
+    StartingScoreRed:int = 0
+    
+    @editable
+    StartingScoreBlue:int = 0
+
+    @editable
+    AddOnCapture:int = 1
+
+    var RedFlags:int = 0
+    var BlueFlags:int = 0
 
     @editable
     ButtonUI:button_device = button_device{}
@@ -46,10 +58,10 @@ CustomUI := class(creative_device):
                                                             DefaultDesiredSize := vector2{X := 120.0, Y := 50.0}                                
                                                     overlay_slot:
                                                         Widget := text_block:
-                                                            DefaultText := TextForUI("Flags: 0")                            
+                                                            DefaultText := TextForUI("Flags: {RedFlags}")                            
                                         overlay_slot:
                                             Widget := text_block:
-                                                DefaultText := TextForUI("Flags: 0")
+                                                DefaultText := TextForUI("Flags: {RedFlags}")
                             stack_box_slot:
                                 Widget := overlay:
                                     Slots := array:
@@ -60,7 +72,7 @@ CustomUI := class(creative_device):
                                                 DefaultDesiredSize := vector2{X := 120.0, Y := 50.0}                                
                                         overlay_slot:
                                             Widget := text_block:
-                                                DefaultText := TextForUI("Flags: 0")
+                                                DefaultText := TextForUI("Flags: {BlueFlags}")
                             # stack_box_slot:
                             #     Widget := color_block:
                             #         DefaultColor := NamedColors.White
@@ -83,8 +95,15 @@ CustomUI := class(creative_device):
                 #                 Widget := text_block:
                 #                     DefaultText := TextForUI("Flags: 0")
 
-    OnInteracted(Agent : agent ) : void = 
-        if(Player := player[Agent], PlayerUI := GetPlayerUI[Player]):
-            NewUI : canvas = CreateUI()
+
+    RefreshUI(PlayerUI : player_ui) : void =
+        NewUI : canvas = CreateUI()
+            PlayerUI.RemoveWidget(NewUI)
             PlayerUI.AddWidget(NewUI)
-             Print("Hi", ?Duration:=6.0)
+
+    OnInteracted(Agent : agent ) : void =
+        if(Player := player[Agent], PlayerUI := GetPlayerUI[Player]):
+            set RedFlags += StartingScoreRed + AddOnCapture
+            set BlueFlags += StartingScoreBlue + AddOnCapture
+            RefreshUI(PlayerUI)
+            Print("Flags updated", ?Duration := 6.0)
