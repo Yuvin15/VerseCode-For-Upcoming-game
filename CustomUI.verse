@@ -61,21 +61,21 @@ CustomUI := class(creative_device):
                                 Widget := overlay:
                                     Slots := array:
                                         overlay_slot:
-                                            Widget := overlay:
-                                                Slots := array:
-                                                    overlay_slot:
-                                                        Widget := color_block:
-                                                            DefaultColor := NamedColors.Red
-                                                            DefaultOpacity := 1.0
-                                                            DefaultDesiredSize := vector2{X := 200.0, Y := 50.0}                                
-                                                    overlay_slot:
-                                                        Widget := text_block:
-                                                            DefaultText := TextForUI("Flags: {RedFlags}")
-                                                            DefaultTextColor := NamedColors.White
-                                                            DefaultShadowColor:= NamedColors.Black                      
-                                        # overlay_slot:
-                                        #     Widget := text_block:
-                                        #         DefaultText := TextForUI("Flags: {RedFlags}")
+                                            Widget := color_block:
+                                                DefaultColor := NamedColors.Black
+                                                DefaultOpacity := 1.0
+                                                DefaultDesiredSize := vector2{X := 200.0, Y := 50.0}    
+                                        overlay_slot:
+                                            Widget := color_block:
+                                                DefaultColor := NamedColors.Blue
+                                                DefaultOpacity := 1.0
+                                                DefaultDesiredSize := vector2{X := 195.0, Y := 45.0}                           
+                                        overlay_slot:
+                                            Widget := text_block:
+                                                DefaultText := TextForUI("Flags: {BlueFlags}")
+                                                DefaultTextColor := NamedColors.White
+                                                DefaultShadowColor:= NamedColors.Black
+                            
                             stack_box_slot:
                                 Widget := overlay:
                                     Slots := array:
@@ -84,9 +84,14 @@ CustomUI := class(creative_device):
                                                 Slots := array:
                                                     overlay_slot:
                                                         Widget := color_block:
-                                                            DefaultColor := NamedColors.YellowGreen
+                                                            DefaultColor := NamedColors.Black
                                                             DefaultOpacity := 1.0
-                                                            DefaultDesiredSize := vector2{X := 400.0, Y := 100.0}                                
+                                                            DefaultDesiredSize := vector2{X := 400.0, Y := 100.0}
+                                                    overlay_slot:
+                                                        Widget := color_block:
+                                                            DefaultColor := NamedColors.Magenta
+                                                            DefaultOpacity := 1.0
+                                                            DefaultDesiredSize := vector2{X := 395.0, Y := 95.0}                                
                                                     overlay_slot:
                                                         Widget := text_block:
                                                             DefaultShadowColor:= NamedColors.Black
@@ -96,14 +101,26 @@ CustomUI := class(creative_device):
                                     Slots := array:
                                         overlay_slot:
                                             Widget := color_block:
-                                                DefaultColor := NamedColors.Blue
+                                                DefaultColor := NamedColors.Black
                                                 DefaultOpacity := 1.0
-                                                DefaultDesiredSize := vector2{X := 200.0, Y := 50.0}                                
+                                                DefaultDesiredSize := vector2{X := 200.0, Y := 50.0}
                                         overlay_slot:
-                                            Widget := text_block:
-                                                DefaultText := TextForUI("Flags: {BlueFlags}")
-                                                DefaultTextColor := NamedColors.White
-                                                DefaultShadowColor:= NamedColors.Black
+                                            Widget := overlay:
+                                                Slots := array:
+                                                    overlay_slot:
+                                                        Widget := color_block:
+                                                            DefaultColor := NamedColors.Red
+                                                            DefaultOpacity := 1.0
+                                                            DefaultDesiredSize := vector2{X := 195.0, Y := 45.0}                                
+                                                    overlay_slot:
+                                                        Widget := text_block:
+                                                            DefaultText := TextForUI("Flags: {RedFlags}")
+                                                            DefaultTextColor := NamedColors.White
+                                                            DefaultShadowColor:= NamedColors.Black                      
+                                        # overlay_slot:
+                                        #     Widget := text_block:
+                                        #         DefaultText := TextForUI("Flags: {RedFlags}")
+                                                
                             # stack_box_slot:
                             #     Widget := color_block:
                             #         DefaultColor := NamedColors.White
@@ -132,7 +149,7 @@ CustomUI := class(creative_device):
             # set BlueFlags += StartingScoreBlue + AddOnCapture
             RefreshUI(PlayerUI)
 
-            Print("Flags updated", ?Duration := 6.0)
+            Print("UI Added", ?Duration := 6.0)
 
     RefreshUI(PlayerUI : player_ui) : void =
         NewUI : canvas = CreateUI()
