@@ -26,9 +26,9 @@ Random_UI := class(creative_device):
 
     UIArray : []string = array{"UI1", "UI2", "UI3"}
 
-    TextForMyUI<localizes> : message = "Get Health"
-    TextForMyUI2<localizes> : message = "Get even more health"
-    TextForMyUI3<localizes> : message = "Lose health"
+    TextForMyUI<localizes> : message = "Pick"
+    # TextForMyUI2<localizes> : message = "Lose health\n-95 Health"
+    # TextForMyUI3<localizes> : message = "Get more health\n+1000 Health"
 
     var MaybeMyUIPerPlayer : [player]?canvas = map{}
     # Runs when the device is started in a running game
@@ -115,15 +115,22 @@ Random_UI := class(creative_device):
     CreateUI1() : canvas =
         MyUIButton : button_loud = button_loud{DefaultText := TextForMyUI}
         MyUIButton.OnClick().Subscribe(HandleSelectedUIButton)
+
+        MyUIButton2 : button_loud = button_loud{DefaultText := TextForMyUI}
+        MyUIButton2.OnClick().Subscribe(HandleSelectedUIButton2)
+
+        MyUIButton3 : button_loud = button_loud{DefaultText := TextForMyUI}
+        MyUIButton3.OnClick().Subscribe(HandleSelectedUIButton3)
+
         Ui1 : canvas = canvas:
             Slots:=array:
                 canvas_slot: 
-                    Anchors := anchors{Minimum := vector2{X := 0.5, Y := 0.5}, Maximum := vector2{X := 0.5, Y := 0.5} }
+                    Anchors := anchors{Minimum := vector2{X := 0.4, Y := 0.6}, Maximum := vector2{X := 0.4, Y := 0.6} }
                     Offsets := margin{Top := 0.0, Left := 0.0, Right := 0.0, Bottom := 0.0}
                     Alignment := vector2{X := 0.0, Y := 0.0}
                     SizeToContent := true
                     Widget := stack_box:
-                        Orientation := orientation.Horizontal
+                        Orientation := orientation.Vertical
                         Slots := array:
                             stack_box_slot:
                                 Widget := overlay:
@@ -132,25 +139,91 @@ Random_UI := class(creative_device):
                                             Widget := color_block:
                                                 DefaultColor := NamedColors.Black
                                                 DefaultOpacity := 1.0
-                                                DefaultDesiredSize := vector2{X := 500.0, Y := 200.0}    
+                                                DefaultDesiredSize := vector2{X := 500.0, Y := 150.0}    
                                         overlay_slot:
                                             Widget := color_block:
                                                 DefaultColor := NamedColors.Blue
                                                 DefaultOpacity := 1.0
-                                                DefaultDesiredSize := vector2{X := 495.0, Y := 195.0}                           
+                                                DefaultDesiredSize := vector2{X := 495.0, Y := 145.0}                           
                                         overlay_slot:
                                             HorizontalAlignment := horizontal_alignment.Left
                                             Padding:= margin {Left:= 10.0, Top:= 0.0, Right:= 0.0, Bottom:= 0.0}
                                             Widget := text_block:
-                                                DefaultText := TextForUI("UI1")
+                                                DefaultText := TextForUI("Gain Health\n+150 Health")
                                                 DefaultTextColor := NamedColors.White
                                                 DefaultShadowColor:= NamedColors.Black
                                         overlay_slot:
                                             Padding:= margin {Left:= 0.0, Top:= 0.0, Right:= 10.0, Bottom:= 0.0}
                                             Widget := MyUIButton
                                             HorizontalAlignment := horizontal_alignment.Right
+                canvas_slot: 
+                    Anchors := anchors{Minimum := vector2{X := 0.4, Y := 0.4}, Maximum := vector2{X := 0.4, Y := 0.4} }
+                    Offsets := margin{Top := 0.0, Left := 0.0, Right := 0.0, Bottom := 0.0}
+                    Alignment := vector2{X := 0.0, Y := 0.0}
+                    SizeToContent := true
+                    Widget := stack_box:
+                        Orientation := orientation.Vertical
+                        Slots := array:
+                            stack_box_slot:
+                                Widget := overlay:
+                                    Slots := array:
+                                        overlay_slot:
+                                            Widget := color_block:
+                                                DefaultColor := NamedColors.Black
+                                                DefaultOpacity := 1.0
+                                                DefaultDesiredSize := vector2{X := 500.0, Y := 150.0}    
+                                        overlay_slot:
+                                            Widget := color_block:
+                                                DefaultColor := NamedColors.DarkKhaki
+                                                DefaultOpacity := 1.0
+                                                DefaultDesiredSize := vector2{X := 495.0, Y := 145.0}                           
+                                        overlay_slot:
+                                            HorizontalAlignment := horizontal_alignment.Left
+                                            Padding:= margin {Left:= 10.0, Top:= 0.0, Right:= 0.0, Bottom:= 0.0}
+                                            Widget := text_block:
+                                                DefaultText := TextForUI("Lose Health\n-95 Health")
+                                                DefaultTextColor := NamedColors.White
+                                                DefaultShadowColor:= NamedColors.Black
+                                        overlay_slot:
+                                            Padding:= margin {Left:= 0.0, Top:= 0.0, Right:= 10.0, Bottom:= 0.0}
+                                            Widget := MyUIButton2
+                                            HorizontalAlignment := horizontal_alignment.Right
+                canvas_slot: 
+                    Anchors := anchors{Minimum := vector2{X := 0.4, Y := 0.2}, Maximum := vector2{X := 0.4, Y := 0.2} }
+                    Offsets := margin{Top := 0.0, Left := 0.0, Right := 0.0, Bottom := 0.0}
+                    Alignment := vector2{X := 0.0, Y := 0.0}
+                    SizeToContent := true
+                    Widget := stack_box:
+                        Orientation := orientation.Vertical
+                        Slots := array:
+                            stack_box_slot:
+                                Widget := overlay:
+                                    Slots := array:
+                                        overlay_slot:
+                                            Widget := color_block:
+                                                DefaultColor := NamedColors.Black
+                                                DefaultOpacity := 1.0
+                                                DefaultDesiredSize := vector2{X := 500.0, Y := 150.0}    
+                                        overlay_slot:
+                                            Widget := color_block:
+                                                DefaultColor := NamedColors.DarkMagenta
+                                                DefaultOpacity := 1.0
+                                                DefaultDesiredSize := vector2{X := 495.0, Y := 145.0}                           
+                                        overlay_slot:
+                                            HorizontalAlignment := horizontal_alignment.Left
+                                            Padding:= margin {Left:= 10.0, Top:= 0.0, Right:= 0.0, Bottom:= 0.0}
+                                            Widget := text_block:
+                                                DefaultText := TextForUI("Gain Health\n+10000 Health")
+                                                DefaultTextColor := NamedColors.White
+                                                DefaultShadowColor:= NamedColors.Black
+                                        overlay_slot:
+                                            Padding:= margin {Left:= 0.0, Top:= 0.0, Right:= 10.0, Bottom:= 0.0}
+                                            Widget := MyUIButton3
+                                            HorizontalAlignment := horizontal_alignment.Right
+                            
+                    
     CreateUI2() : canvas =
-        MyUIButton : button_loud = button_loud{DefaultText := TextForMyUI2}
+        MyUIButton : button_loud = button_loud{DefaultText := TextForMyUI}
         MyUIButton.OnClick().Subscribe(HandleSelectedUIButton2)
         UI2 : canvas = canvas:
             Slots:=array:
@@ -187,7 +260,7 @@ Random_UI := class(creative_device):
                                             Widget := MyUIButton
                                             HorizontalAlignment := horizontal_alignment.Right
     CreateUI3() : canvas =
-        MyUIButton : button_loud = button_loud{DefaultText := TextForMyUI3}
+        MyUIButton : button_loud = button_loud{DefaultText := TextForMyUI}
         MyUIButton.OnClick().Subscribe(HandleSelectedUIButton3)
         UI3 : canvas = canvas:
             Slots:=array:
